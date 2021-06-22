@@ -5,7 +5,6 @@ import { ForecastController } from '@src/controllers/forecast';
 import { Application } from 'express';
 
 export class SetupServer extends Server {
-
   constructor(private port = 3000) {
     super();
   }
