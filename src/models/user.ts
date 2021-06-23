@@ -1,3 +1,4 @@
+import logger from '@src/logger';
 import mongoose, { Document, Model } from 'mongoose';
 import AuthService from '../services/auth';
 
@@ -53,7 +54,7 @@ schema.pre<UserModel>('save', async function (): Promise<void> {
     const hashedPassword = await AuthService.hasPassword(this.password);
     this.password = hashedPassword;
   } catch (err) {
-    console.error(`Error hasind the password fot the user ${this.name}`);
+    logger.error(`Error hasind the password fot the user ${this.name}`);
   }
 });
 

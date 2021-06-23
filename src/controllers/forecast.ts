@@ -1,4 +1,5 @@
 import { ClassMiddleware, Controller, Get } from '@overnightjs/core';
+import logger from '@src/logger';
 import { authMiddleware } from '@src/middlewares/auth';
 import { Beach } from '@src/models/beach';
 import { Forecast } from '@src/services/forecast';
@@ -18,7 +19,8 @@ export class ForecastController {
       const beaches = await Beach.find({ user: req.decoded?.id });
       const forecastData = await forecast.processForecastForBeaches(beaches);
       res.status(200).send(forecastData);
-    } catch (err) {
+    } catch (error) {
+      logger.error(error);
       res.status(500).send({ error: 'Somethign went wrong' });
     }
   }
