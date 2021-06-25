@@ -2,6 +2,7 @@ import { InternalError } from '@src/util/errors/internal-error';
 import config, { IConfig } from 'config';
 import * as HTTPUtil from '@src/util/request';
 import { TimeUtil } from '@src/util/time';
+import logger from '@src/logger';
 
 export interface StormGlassPointSource {
   [key: string]: number;
@@ -60,6 +61,11 @@ export class StormGlass {
   public async fetchPoints(lat: number, lng: number): Promise<ForecastPoint[]> {
     const endTimestamp = TimeUtil.getUnixTimeForAFutureDay(1);
     try {
+      logger.info(
+        ` ************ APIURL IS *********: ${stormGlassResourceConfig.get(
+          'apiUrl',
+        )} `,
+      );
       const response = await this.request.get<StormGlassForecastResponse>(
         `${stormGlassResourceConfig.get(
           'apiUrl',
@@ -71,6 +77,12 @@ export class StormGlass {
             Authorization: stormGlassResourceConfig.get('apiToken'),
           },
         },
+      );
+
+      logger.info(
+        ` ************ TOKEN IS *********: ${stormGlassResourceConfig.get(
+          'apiToken',
+        )} `,
       );
 
       return this.mormalizeResponse(response.data);
