@@ -80,7 +80,7 @@ export class StormGlass {
       );
 
       logger.info(
-        ` ************ TOKEN IS *********: ${stormGlassResourceConfig.get(
+        ` ************ TOKEN IS **********: ${stormGlassResourceConfig.get(
           'apiToken',
         )} `,
       );
